@@ -13,8 +13,8 @@ def MIncidenciaG(n,e,s,l):
     mat = [[0 for _ in range (e)] for _ in range(n)]
     
     for x in range(e):
-        mat[s[x]-1][x] = 1
-        mat[l[x]-1][x] = 1
+        mat[s[x]-1][x]++
+        mat[l[x]-1][x]++
     
     return mat
 
