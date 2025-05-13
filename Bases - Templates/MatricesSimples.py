@@ -1,9 +1,9 @@
 #Para gráficas no dirigidas
 #Cada si llega a li y viceversa
-n=6
-e=5
-Salen=[1,2,1,3,3]
-Llegan=[2,1,4,3,5]
+n=5
+e=8
+Salen=[1,3,3,3,1,1,1,3]
+Llegan=[2,2,1,3,2,4,5,5]
 
 def printM(mat):
     for x in mat:
@@ -25,5 +25,5 @@ def MAdyacenciaG(n,e,s,l):
         mat[l[x]-1][s[x]-1] = 1
     return mat
 
-#printM(MIncidenciaG(n,e,Salen,Llegan))
-printM(MAdyacenciaG(n,e,Salen,Llegan))
+printM(MIncidenciaG(n,e,Salen,Llegan))
+#printM(MAdyacenciaG(n,e,Salen,Llegan))
