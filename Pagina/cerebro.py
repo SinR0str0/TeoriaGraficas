@@ -1,6 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 @app.route("/procesar", methods=["POST"])
 def procesar_datos():
@@ -11,4 +15,4 @@ def procesar_datos():
     return True
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run()
