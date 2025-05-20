@@ -1,4 +1,4 @@
-/* Color palette */
+/* Paleta de Colores */
 :root {
     --color-light-blue: #90dee3;
     --color-gray-blue: #58666b;
@@ -109,7 +109,7 @@
     border-color: var(--color-gray-blue);
   }
   
-  /* Responsive tweaks */
+  /* Medidas responsive */
   @media (max-width: 400px) {
     body {
       padding: 10px;
