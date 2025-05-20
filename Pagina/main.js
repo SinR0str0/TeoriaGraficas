@@ -87,7 +87,7 @@ form.addEventListener('submit', (e) => {
         dropdownsSection.querySelector('select')?.focus();
         matSection.style.display = 'flex';
         matSection.querySelector('select')?.focus();
-        main(vertice, relacion).catch(console.error);
+        main(vertice, "xd").catch(console.error);
     }
 });
 
