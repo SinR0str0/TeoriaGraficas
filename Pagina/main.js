@@ -75,21 +75,10 @@ form.addEventListener('submit', (e) => {
     }
 
     if (!validaRelacion(relacion)) {
-        relacionesErrores.textContent = 'Las relaciones deben ser una lista de pares de números naturales, ej: [[1,2],[2,3]].';
+        relacionesErrores.textContent = 'Relaciones inválidas.';
         valid = false;
     } else {
         relacionesErrores.textContent = '';
-    }
-
-    // Validar que el número de líneas coincida con las relaciones
-    try {
-        const parsedRelaciones = JSON.parse(relacion);
-        if (parsedRelaciones.length !== linea) {
-            lineasError.textContent = 'El número de líneas debe coincidir con la cantidad de relaciones.';
-            valid = false;
-        }
-    } catch {
-        // Error ya manejado por validaRelacion
     }
 
     if (valid) {
