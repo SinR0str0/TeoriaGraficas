@@ -14,8 +14,8 @@ async function main(verticesValue, relacionesValue) {
     let pyodide = await loadPyodide();
     
     try {
-        const brainPyUrl = new URL('./brain.py', window.location.origin).href;
-        let response = await fetch('./brain.py');
+        const brainPyUrl = new URL('brain.py', window.location.origin).href;
+        let response = await fetch('brain.py');
         if (!response.ok) {
             throw new Error(`No se pudo cargar brain.py desde ${brainPyUrl}: ${response.status} ${response.statusText}`);
         }
