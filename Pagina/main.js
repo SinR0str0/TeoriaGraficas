@@ -10,7 +10,7 @@ const relacionesErrores = document.getElementById('relacionesErrores');
 const matSection = document.getElementById('matrizOutput');
 const dropdownsSection = document.getElementById('dropdowns');
 
-async function main(verticesValue, relacionesValue) {
+async function main(verticesValue) {
     let pyodide = await loadPyodide();
     
     try {
@@ -21,7 +21,7 @@ async function main(verticesValue, relacionesValue) {
         }
         let pythonCode = `
 ${await response.text()}
-result = Mat(${verticesValue}, ${relacionesValue})
+result = Mat(${verticesValue})
 `;
         let matrix = await pyodide.runPythonAsync(pythonCode);
         matrix = matrix.toJs();
@@ -87,7 +87,7 @@ form.addEventListener('submit', (e) => {
         dropdownsSection.querySelector('select')?.focus();
         matSection.style.display = 'flex';
         matSection.querySelector('select')?.focus();
-        main(vertice, "xd").catch(console.error);
+        main(vertice).catch(console.error);
     }
 });
 
