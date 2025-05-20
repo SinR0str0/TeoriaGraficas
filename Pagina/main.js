@@ -11,7 +11,7 @@ const matSection = document.getElementById('matrizOutput');
 const dropdownsSection = document.getElementById('dropdowns');
 
 async function main(verticesValue) {
-    let pyodide = await loadPyodide();
+let pyodide = await loadPyodide();
     
     try {
         const brainPyUrl = new URL('brain.py', window.location.origin).href;
@@ -24,6 +24,9 @@ ${await response.text()}
 result = Mat(${verticesValue})
 `;
         let matrix = await pyodide.runPythonAsync(pythonCode);
+        if (matrix === undefined) {
+            throw new Error(`La ejecución de Mat(${verticesValue}) falló, posiblemente debido a un error en la función Mat.`);
+        }
         matrix = matrix.toJs();
         
         let outputDiv = document.getElementById('matrizOutput');

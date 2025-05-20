@@ -1,6 +1,3 @@
 def Mat(n):
-    # Crear una matriz cuadrada de tamaño n x n inicializada con ceros
-    matriz = [[0 for _ in range(n)] for _ in range(n)]
-    
-    
-    return [[1,2,3],[4,5,6]]
+    n=int(n)
+    return [[1 if i == j else 0 for j in range(n)] for i in range(n)]
