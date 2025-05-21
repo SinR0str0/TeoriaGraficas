@@ -6,6 +6,7 @@ const relaciones = document.getElementById('relaciones');
 const lineasError = document.getElementById('lineasError');
 const verticesError = document.getElementById('verticesError');
 const relacionesErrores = document.getElementById('relacionesErrores');
+const tipoError = document.getElementById('tipoGrafoError');
 
 const dropdownsSection = document.getElementById('dropdowns');
 
@@ -82,8 +83,14 @@ form.addEventListener('submit', (e) => {
     } else {
         relacionesErrores.textContent = '';
     }
+    if(valid=="0"){
+        tipoError.textContent = 'Seleccione un tipo de gráfica.';
+        valid = false;
+    } else {
+        tipoError.textContent = '';
+    }
 
-    if (valid && (tipoGrafo=="1"||tipoGrafo=="0")) {
+    if (valid) {
         form.style.display = 'none';
         dropdownsSection.style.display = 'flex';
         dropdownsSection.querySelector('select')?.focus();
