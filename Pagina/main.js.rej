@@ -1,0 +1,17 @@
+diff a/Pagina/main.js b/Pagina/main.js	(rejected hunks)
+@@ -83,8 +83,14 @@
+     } else {
+         relacionesErrores.textContent = '';
+     }
++    if(valid=="0"){
++        tipoError.textContent = 'Seleccione un tipo de gráfica.';
++        valid = false;
++    } else {
++        tipoError.textContent = '';
++    }
+ 
+-    if (valid && (tipoGrafo=="1"||tipoGrafo=="0")) {
++    if (valid) {
+         form.style.display = 'none';
+         dropdownsSection.style.display = 'flex';
+         dropdownsSection.querySelector('select')?.focus();

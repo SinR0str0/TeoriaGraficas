@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menú Desplegable con Guardado y Cambio</title>
+</head>
+<body>
+
+    <form id="form">
+        <label for="options">Selecciona una opción:</label>
+        <select id="options" name="options">
+            <option value="">--Selecciona--</option>
+            <option value="1">Opción 1</option>
+            <option value="2">Opción 2</option>
+        </select>
+    </form>
+
+    <div id="result"></div>
+    <div id="savedTexts" style="margin-top: 1em;"></div>
+
+    <script>
+        let currentOption = '';
+        const savedData = []; // Array de objetos {v1: string, v2: string}
+
+        const optionsSelect = document.getElementById('options');
+        const resultDiv = document.getElementById('result');
+        const savedTextsDiv = document.getElementById('savedTexts');
+
+        optionsSelect.addEventListener('change', function(event) {
+            const selectedValue = event.target.value;
+
+            if (currentOption && currentOption !== selectedValue) {
+                const confirmed = confirm("Al cambiar de opción, los mensajes cambian. Al aceptar, los textos que se han guardado cambiarán a su contraparte.");
+                if (confirmed) {
+                    currentOption = selectedValue;
+                    updateResultDiv(currentOption);
+                    renderSavedTexts();
+                } else {
+                    // revertir selección
+                    event.target.value = currentOption;
+                }
+            } else {
+                currentOption = selectedValue;
+                updateResultDiv(currentOption);
+            }
+        });
+
+        function updateResultDiv(option) {
+            resultDiv.innerHTML = '';
+            if (option === "1") {
+                resultDiv.innerHTML = `
+                    Del vértice <input type="text" id="vertex1" placeholder="Vértice 1" />
+                    al vértice <input type="text" id="vertex2" placeholder="Vértice 2" />
+                    <button id="saveBtn">Guardar</button>
+                `;
+                document.getElementById('saveBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    saveText(1);
+                });
+            } else if (option === "2") {
+                resultDiv.innerHTML = `
+                    Sale del vértice <input type="text" id="vertex3" placeholder="Vértice 3" />
+                    y llega al vértice <input type="text" id="vertex4" placeholder="Vértice 4" />
+                    <button id="saveBtn">Guardar</button>
+                `;
+                document.getElementById('saveBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    saveText(2);
+                });
+            }
+        }
+
+        function saveText(option) {
+            if (option === 1) {
+                const v1 = document.getElementById('vertex1').value.trim();
+                const v2 = document.getElementById('vertex2').value.trim();
+                if (v1 && v2) {
+                    savedData.push({ v1, v2 });
+                    renderSavedTexts();
+                    // limpiar inputs
+                    document.getElementById('vertex1').value = '';
+                    document.getElementById('vertex2').value = '';
+                } else {
+                    alert("Por favor, completa ambos campos.");
+                }
+            } else if (option === 2) {
+                const v1 = document.getElementById('vertex3').value.trim();
+                const v2 = document.getElementById('vertex4').value.trim();
+                if (v1 && v2) {
+                    savedData.push({ v1, v2 });
+                    renderSavedTexts();
+                    // limpiar inputs
+                    document.getElementById('vertex3').value = '';
+                    document.getElementById('vertex4').value = '';
+                } else {
+                    alert("Por favor, completa ambos campos.");
+                }
+            }
+        }
+
+        // Renderiza los textos guardados según currentOption con el patrón correcto
+        function renderSavedTexts() {
+            savedTextsDiv.innerHTML = '';
+            if (!currentOption) return;
+
+            savedData.forEach(({ v1, v2 }, index) => {
+                let text = '';
+                if (currentOption === "1") {
+                    text = `Guardado: Del vértice ${v1} al vértice ${v2}`;
+                } else if (currentOption === "2") {
+                    text = `Guardado: Sale del vértice ${v1} y llega al vértice ${v2}`;
+                }
+                const p = document.createElement('p');
+                p.textContent = text;
+                savedTextsDiv.appendChild(p);
+            });
+        }
+    </script>
+
+</body>
+</html>
+
