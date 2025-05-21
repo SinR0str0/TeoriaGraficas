@@ -10,44 +10,48 @@ const relacionesErrores = document.getElementById('relacionesErrores');
 const matSection = document.getElementById('matrizOutput');
 const dropdownsSection = document.getElementById('dropdowns');
 
-let pyodide = await loadPyodide();
+let pyodide; // global
 
 async function setupPyodide() {
-  const pyodide = await pyodideReady;
+  pyodide = await loadPyodide();
 
   const response = await fetch("brain.py");
   const code = await response.text();
   await pyodide.runPythonAsync(code);
-
-  return pyodide;
 }
-
 
 async function main(verticesValue) {
-    const pyodide = await setupPyodide();
-    try{
-        let matrix = await pyodide.runPythonAsync(pythonCode);
-        if (matrix === undefined) {
-            throw new Error(`La ejecución de Mat(${verticesValue}) falló, posiblemente debido a un error en la función Mat.`);
-        }
-        matrix = matrix.toJs();
-        
-        let outputDiv = document.getElementById('matrizOutput');
-        let output = '<table>';
-        for (let row of matrix) {
-            output += '<tr>';
-            for (let cell of row) {
-                output += `<td>${cell}</td>`;
-            }
-            output += '</tr>';
-        }
-        output += '</table>';
-        outputDiv.innerHTML = output;
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('matrizOutput').innerHTML = `<p>Error: ${error.message}</p>`;
+  try {
+    if (!pyodide) {
+      await setupPyodide(); // carga si no está listo
     }
+
+    // Ejecutar la función Mat desde brain.py con el parámetro dado
+    let matrix = await pyodide.runPythonAsync(`Mat(${verticesValue})`);
+    if (!matrix) {
+      throw new Error(`La ejecución de Mat(${verticesValue}) falló.`);
+    }
+
+    matrix = matrix.toJs();
+
+    let outputDiv = document.getElementById('matrizOutput');
+    let output = '<table border="1" cellpadding="5">';
+    for (let row of matrix) {
+      output += '<tr>';
+      for (let cell of row) {
+        output += `<td>${cell}</td>`;
+      }
+      output += '</tr>';
+    }
+    output += '</table>';
+    outputDiv.innerHTML = output;
+
+  } catch (error) {
+    console.error('Error:', error);
+    document.getElementById('matrizOutput').innerHTML = `<p>Error: ${error.message}</p>`;
+  }
 }
+
 
 function validaNumero(value) {
   return Number.isInteger(value) && value > 0 && !value.toString().includes(".");
