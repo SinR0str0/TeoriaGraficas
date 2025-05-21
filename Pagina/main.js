@@ -10,19 +10,22 @@ const relacionesErrores = document.getElementById('relacionesErrores');
 const matSection = document.getElementById('matrizOutput');
 const dropdownsSection = document.getElementById('dropdowns');
 
-async function main(verticesValue) {
 let pyodide = await loadPyodide();
-    
-    try {
-        const brainPyUrl = new URL('brain.py', window.location.origin).href;
-        let response = await fetch('brain.py');
-        if (!response.ok) {
-            throw new Error(`No se pudo cargar brain.py desde ${brainPyUrl}: ${response.status} ${response.statusText}`);
-        }
-        let pythonCode = `
-${await response.text()}
-result = Mat(${verticesValue})
-`;
+
+async function setupPyodide() {
+  const pyodide = await pyodideReady;
+
+  const response = await fetch("brain.py");
+  const code = await response.text();
+  await pyodide.runPythonAsync(code);
+
+  return pyodide;
+}
+
+
+async function main(verticesValue) {
+    const pyodide = await setupPyodide();
+    try{
         let matrix = await pyodide.runPythonAsync(pythonCode);
         if (matrix === undefined) {
             throw new Error(`La ejecución de Mat(${verticesValue}) falló, posiblemente debido a un error en la función Mat.`);
