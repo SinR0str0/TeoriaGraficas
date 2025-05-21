@@ -14,11 +14,11 @@
   <form id="dataForm" novalidate>
     <div>
       <label for="tipoGrafo">Tipo de gráfica: </label>
-      <select id="tipoGrafo" name="tipoGrafo" required>
-        <option value="0" disabled selected>Seleccione una opción</option>
-        <option value="1">Gráfica</option>
-        <option value="2">Digráfica</option>
-      </select>
+      <select id="opciones" name="opciones" required>
+            <option value="">Selecciona una opción</option>
+            <option value="1">Gráfica</option>
+            <option value="2">Digráfica</option>
+        </select>
       <div id="tipoGrafoError" class="error" aria-live="polite"></div>
     </div>
 
@@ -33,11 +33,11 @@
       <input type="number" id="vertices" min="1" step="1" required placeholder="Escriba el número v" />
       <div id="verticesError" class="error" aria-live="polite"></div>
     </div>
-    <div>
-      <label for="relaciones">Relaciones de vértices</label>
-      <input type="text" id="relaciones" required placeholder="Relaciones" />
-      <div id="relacionesErrores" class="error" aria-live="polite"></div>
-    </div>
+
+    <div id="result"></div>
+    <div id="savedTexts" style="margin-top: 1em;"></div>
+    <div id="relacionError" class="error" aria-live="polite"></div>
+
     <button type="submit">Calcular</button>
   </form>
 
