@@ -13,11 +13,21 @@
   <h1>Calculadora de Gráficas</h1>
   <form id="dataForm" novalidate>
     <div>
+      <label for="tipoGrafo">Tipo de gráfica: </label>
+      <select id="tipoGrafo" name="tipoGrafo" required>
+        <option value="0" disabled selected>Seleccione una opción</option>
+        <option value="1">Gráfica</option>
+        <option value="2">Digráfica</option>
+      </select>
+      <div id="tipoGrafoError" class="error" aria-live="polite"></div>
+    </div>
+
+    <div>
       <label for="lineas">Número de líneas (e): </label>
       <input type="number" id="lineas" min="1" step="1" required placeholder="Escriba el valor de e" />
-
       <div id="lineasError" class="error" aria-live="polite"></div>
     </div>
+
     <div>
       <label for="vertices">Número de vértices (v): </label>
       <input type="number" id="vertices" min="1" step="1" required placeholder="Escriba el número v" />
@@ -65,9 +75,6 @@
     </select>
   </section>
 </div>
-<div id="resultado"></div>
-<h2>Matriz Generada</h2>
-<div id="matrizOutput">Esperando datos...</div>
   
 <script src="main.js" defer></script>
 </body>

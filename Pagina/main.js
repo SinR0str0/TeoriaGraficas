@@ -7,8 +7,10 @@ const lineasError = document.getElementById('lineasError');
 const verticesError = document.getElementById('verticesError');
 const relacionesErrores = document.getElementById('relacionesErrores');
 
-const matSection = document.getElementById('matrizOutput');
 const dropdownsSection = document.getElementById('dropdowns');
+
+const tipoGrafo = document.getElementById("tipoGrafo").value;
+
 
 let pyodide; // global
 
@@ -20,10 +22,10 @@ async function setupPyodide() {
   await pyodide.runPythonAsync(code);
 }
 
-async function main(verticesValue) {
+async function prueba(verticesValue) {
   try {
     if (!pyodide) {
-      await setupPyodide(); // carga si no está listo
+      await setupPyodide(); 
     }
 
     // Ejecutar la función Mat desde brain.py con el parámetro dado
@@ -34,17 +36,7 @@ async function main(verticesValue) {
 
     matrix = matrix.toJs();
 
-    let outputDiv = document.getElementById('matrizOutput');
-    let output = '<table border="1" cellpadding="5">';
-    for (let row of matrix) {
-      output += '<tr>';
-      for (let cell of row) {
-        output += `<td>${cell}</td>`;
-      }
-      output += '</tr>';
-    }
-    output += '</table>';
-    outputDiv.innerHTML = output;
+    console.print(matrix)
 
   } catch (error) {
     console.error('Error:', error);
@@ -91,12 +83,11 @@ form.addEventListener('submit', (e) => {
         relacionesErrores.textContent = '';
     }
 
-    if (valid) {
+    if (valid && (tipoGrafo=="1"||tipoGrafo=="0")) {
         form.style.display = 'none';
         dropdownsSection.style.display = 'flex';
         dropdownsSection.querySelector('select')?.focus();
-        matSection.style.display = 'flex';
-        matSection.querySelector('select')?.focus();
+        
         main(vertice).catch(console.error);
     }
 });
