@@ -5,8 +5,12 @@ const relaciones = document.getElementById('relaciones');
 
 const lineasError = document.getElementById('lineasError');
 const verticesError = document.getElementById('verticesError');
+<<<<<<< HEAD
 const relacionesErrores = document.getElementById('relacionError');
 const tipoError = document.getElementById('tipoGrafoError');
+=======
+const relacionesErrores = document.getElementById('relacionesErrores');
+>>>>>>> parent of 0a117ba (Pruebas más)
 
 const dropdownsSection = document.getElementById('dropdowns');
 
@@ -82,6 +86,7 @@ form.addEventListener('submit', (e) => {
     verticesError.textContent = '';
   }
 
+<<<<<<< HEAD
   if (opActual == "") {
     tipoError.textContent = 'Seleccione un tipo de gráfica.';
     valid = false;
@@ -102,6 +107,22 @@ form.addEventListener('submit', (e) => {
 
     main(vertice).catch(console.error);
   }
+=======
+    if (!validaRelacion(relacion)) {
+        relacionesErrores.textContent = 'Relaciones inválidas.';
+        valid = false;
+    } else {
+        relacionesErrores.textContent = '';
+    }
+
+    if (valid && (tipoGrafo=="1"||tipoGrafo=="0")) {
+        form.style.display = 'none';
+        dropdownsSection.style.display = 'flex';
+        dropdownsSection.querySelector('select')?.focus();
+        
+        main(vertice).catch(console.error);
+    }
+>>>>>>> parent of 0a117ba (Pruebas más)
 });
 
 opcionesSelect.addEventListener('change', function (event) {
