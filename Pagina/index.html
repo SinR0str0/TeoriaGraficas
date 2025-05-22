@@ -13,9 +13,9 @@
   <h1>Calculadora de Gráficas</h1>
   <form id="dataForm" novalidate>
     <div>
-      <label for="tipoGrafo">Tipo de gráfica: </label>
-      <select id="opciones" name="opciones" required>
-            <option value="">Selecciona una opción</option>
+      <label for="tipoGrafo">Selecciona una opción:</label>
+        <select id="tipoGrafo" name="tipoGrafo">
+            <option value="">Seleccione una opción</option>
             <option value="1">Gráfica</option>
             <option value="2">Digráfica</option>
         </select>
@@ -34,8 +34,8 @@
       <div id="verticesError" class="error" aria-live="polite"></div>
     </div>
 
-    <div id="result"></div>
-    <div id="savedTexts" style="margin-top: 1em;"></div>
+    <div id="resultado"></div>
+    <div id="textosG" style="margin-top: 1em;"></div>
     <div id="relacionError" class="error" aria-live="polite"></div>
 
     <button type="submit">Calcular</button>
