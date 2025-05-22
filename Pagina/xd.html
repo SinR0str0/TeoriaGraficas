@@ -1,151 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Menú Desplegable con Guardado y Cambio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animación mover div</title>
+<style>
+  #app {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+    position: relative;
+    transition: transform 0.5s ease;
+  }
+  /* Clase para mover el div a la izquierda */
+  .mover-izquierda {
+    transform: translateX(-200px);
+  }
+</style>
 </head>
 <body>
 
-    <form id="form">
-        <label for="tipoGrafo">Selecciona una opción:</label>
-        <select id="tipoGrafo" name="tipoGrafo">
-            <option value="">Seleccione una opción</option>
-            <option value="1">Gráfica</option>
-            <option value="2">Digráfica</option>
-        </select>
-    </form>
+<div id="app">Contenido del div</div>
+<button id="btnMover">Mover a la izquierda</button>
 
-    <div id="resultado"></div>
-    <div id="textosG" style="margin-top: 1em;"></div>
-    <div id="relacionError" class="error" aria-live="polite"></div>
+<script>
+  const appDiv = document.getElementById('app');
+  const btn = document.getElementById('btnMover');
 
-    <script>
-        let opActual = '';
-        const datosV = []; 
-        const tipoGrafoOp = document.getElementById('tipoGrafo');
-        const resultadoDiv = document.getElementById('resultado');
-        const textosGDiv = document.getElementById('textosG');
-
-        tipoGrafoOp.addEventListener('change', function(event) {
-            const seleccionado = event.target.value;
-
-            if (opActual && opActual !== seleccionado) {
-                const si = confirm("Al cambiar de opción, las relaciones se ajustarán. Al aceptar, todos los datos guardados serán actualizados.");
-                if (si) {
-                    opActual = seleccionado;
-                    cambiarResultadosDiv(opActual);
-                    rendertextosG();
-                } else {
-                    event.target.value = opActual;
-                }
-            } else {
-                opActual = seleccionado;
-                cambiarResultadosDiv(opActual);
-            }
-        });
-
-        function cambiarResultadosDiv(option) {
-            resultadoDiv.innerHTML = '';
-            if (option === "1") {
-                resultadoDiv.innerHTML = `
-                    Del vértice <input type="text" id="vertex1" placeholder="Inicio" />
-                    al vértice <input type="text" id="vertex2" placeholder="Fin" />
-                    <button id="saveBtn">Guardar</button>
-                `;
-                document.getElementById('saveBtn').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    guardarTxt(1);
-                });
-            } else if (option === "2") {
-                resultadoDiv.innerHTML = `
-                    Sale del vértice <input type="text" id="vertex3" placeholder="Inicio" />
-                    y llega al vértice <input type="text" id="vertex4" placeholder="Fin" />
-                    <button id="saveBtn">Guardar</button>
-                `;
-                document.getElementById('saveBtn').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    guardarTxt(2);
-                });
-            }
-        }
-
-        function guardarTxt(option) {
-            const relacionesErrores = document.getElementById('relacionesErrores');
-            const n=3;
-
-            if (option === 1) {
-                const v1 = document.getElementById('vertex1').value.trim();
-                const v2 = document.getElementById('vertex2').value.trim(); 
-                    
-                if (v1 && v2) {
-                    datosV.push({ v1, v2 });
-
-                    const valoresUnicos = new Set([
-                        ...datosV.map(item => item.v1),
-                        ...datosV.map(item => item.v2)
-                    ]);
-                    if (valoresUnicos.size > n ) {
-                        //relacionesErrores.textContent= `Has superado el número de vértices n = ${n}`;
-                        console.log("Superaste a n")
-                        return;
-                    }
-
-                    rendertextosG();
-                    document.getElementById('vertex1').value = '';
-                    document.getElementById('vertex2').value = '';
-                } else {
-                    alert("Por favor, completa ambos campos.");
-                }
-            } else if (option === 2) {
-                const v1 = document.getElementById('vertex3').value.trim();
-                const v2 = document.getElementById('vertex4').value.trim();
-                if (v1 && v2) {
-                    datosV.push({ v1, v2 });
-                    const valoresUnicos = new Set([
-                        ...datosV.map(item => item.v1),
-                        ...datosV.map(item => item.v2)
-                    ]);
-                    if (valoresUnicos.size > n ) {
-                        //relacionesErrores.textContent= `Has superado el número de vértices n = ${n}`;
-                        console.log("Superaste a n")
-                        return;
-                    }
-                    rendertextosG();
-                    document.getElementById('vertex3').value = '';
-                    document.getElementById('vertex4').value = '';
-                } else {
-                    alert("Por favor, completa ambos campos.");
-                }
-            }
-        }
-
-
-        function rendertextosG() {
-            textosGDiv.innerHTML = '';
-            if (!opActual) return;
-            datosV.forEach(({ v1, v2 }, index) => {
-                let text = '';
-                if (opActual === "1") {
-                    text = `Del vértice <strong>${v1}</strong> al vértice <strong>${v2}</strong>`;
-                } else if (opActual === "2") {
-                    text = `Sale del vértice <strong>${v1}</strong> y llega al vértice <strong>${v2}</strong>`;
-                }
-                const p = document.createElement('p');
-                p.innerHTML = text; 
-                const borrarBtn = document.createElement('button');
-                borrarBtn.textContent = 'X';
-                borrarBtn.style.marginLeft = '10px';
-                borrarBtn.onclick = function() {
-                    datosV.splice(index, 1);
-                    rendertextosG();
-                };
-                p.appendChild(borrarBtn);
-                textosGDiv.appendChild(p);
-            });
-        }
-    </script>
+  btn.addEventListener('click', () => {
+    // Alternar clase que mueve el div
+    appDiv.classList.toggle('mover-izquierda');
+  });
+</script>
 
 </body>
 </html>
-

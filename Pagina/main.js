@@ -1,4 +1,5 @@
 const form = document.getElementById('dataForm');
+const appDiv = document.getElementById('app');
 const lineas = document.getElementById('lineas');
 const vertices = document.getElementById('vertices');
 
@@ -7,7 +8,7 @@ const verticesError = document.getElementById('verticesError');
 const relacionesErrores = document.getElementById('relacionError');
 const tipoError = document.getElementById('tipoGrafoError');
 
-const dropdownsSection = document.getElementById('dropdowns');
+const nuevoDiv = document.getElementById('nuevoDiv');
 
 const tipoGrafoOp = document.getElementById('tipoGrafo');
 const resultadoDiv = document.getElementById('resultado');
@@ -49,7 +50,7 @@ async function prueba(verticesValue) {
 
 
 function validaNumero(value) {
-  return Number.isInteger(value) && value > 0 && !value.toString().includes(".");
+  return Number.isInteger(value) && value >= 0 && !value.toString().includes(".");
 }
 
 form.addEventListener('submit', (e) => {
@@ -102,12 +103,19 @@ form.addEventListener('submit', (e) => {
   }
 
     if (valid) {
-      form.style.display = 'none';
-      dropdownsSection.style.display = 'flex';
-      dropdownsSection.querySelector('select')?.focus();
+      appDiv.classList.toggle('mover-izquierda');
+      if (!appDiv.classList.contains('mover-izquierda')) {
+        nuevoDiv.classList.remove('visible');
+      }
 
       main(vertice).catch(console.error);
     }
+});
+
+appDiv.addEventListener('transitionend', () => {
+  if (appDiv.classList.contains('mover-izquierda')) {
+    nuevoDiv.classList.add('visible');
+  }
 });
 
 tipoGrafoOp.addEventListener('change', function (event) {
@@ -133,8 +141,8 @@ function cambiarResultadosDiv(option) {
   resultadoDiv.innerHTML = '';
   if (option === "1") {
     resultadoDiv.innerHTML = `
-                    Del vértice <input type="text" id="vertex1" placeholder="Inicio" />
-                    al vértice <input type="text" id="vertex2" placeholder="Fin" />
+                    Del vértice <input type="text" id="vertex1" placeholder="Inicio" style="width: 63px;"/>
+                    al vértice <input type="text" id="vertex2" placeholder="Fin" style="width: 63px;"/>
                     <button id="saveBtn">Guardar</button>
                 `;
     document.getElementById('saveBtn').addEventListener('click', function (e) {
