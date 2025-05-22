@@ -14,7 +14,7 @@ const resultadoDiv = document.getElementById('resultado');
 const textosGDiv = document.getElementById('textosG');
 
 let opActual = '';
-        const datosV = []; 
+const datosV = [];
 let pyodide; // global
 
 async function setupPyodide() {
@@ -82,24 +82,32 @@ form.addEventListener('submit', (e) => {
     relacionesErrores.textContent = 'Haz superado tus vértices establecidos.';
     valid = false;
   }
-   else if (datosV.length < linea) {
+  else if (datosV.length < linea) {
     relacionesErrores.textContent = 'Necesitas más relaciones para continuar.';
     valid = false;
   }
   else if (datosV.length > linea) {
-    relacionesErrores.textContent = `Necesitas eliminar ${datosV.length-linea} línea(s) para continuar.`;
+    relacionesErrores.textContent = `Necesitas eliminar ${datosV.length - linea} línea(s) para continuar.`;
     valid = false;
   } else {
     relacionesErrores.textContent = '';
   }
 
-  if (valid) {
-    form.style.display = 'none';
-    dropdownsSection.style.display = 'flex';
-    dropdownsSection.querySelector('select')?.focus();
-
-    main(vertice).catch(console.error);
+  if (tipoGrafoOp.value==='') {
+    tipoError.textContent = 'Seleccione una opción para continuar.';
+    relacionesErrores.textContent = '';
+    valid = false;
+  } else {
+    tipoError.textContent = '';
   }
+
+    if (valid) {
+      form.style.display = 'none';
+      dropdownsSection.style.display = 'flex';
+      dropdownsSection.querySelector('select')?.focus();
+
+      main(vertice).catch(console.error);
+    }
 });
 
 tipoGrafoOp.addEventListener('change', function (event) {
@@ -109,7 +117,7 @@ tipoGrafoOp.addEventListener('change', function (event) {
     const si = confirm("Al cambiar de opción, las relaciones se ajustarán. Al aceptar, todos los datos guardados serán actualizados o reiniciados.");
     if (si) {
       opActual = seleccionado;
-      if (seleccionado === "") {datosV = []}
+      if (seleccionado === "") { datosV = [] }
       cambiarResultadosDiv(opActual);
       rendertextosG();
     } else {
@@ -162,18 +170,19 @@ function guardarTxt(option) {
       ]);
       if (valoresUnicos.size > n) {
         datosV.pop();
-        if(n===0){
-          relacionesErrores.textContent= `Favor de ingresar un valor de n.`;
+        if (n === 0) {
+          relacionesErrores.textContent = `Favor de ingresar un valor de n.`;
         }
-        else{
-          relacionesErrores.textContent= `Has superado el número de vértices n = ${n}`;}
-          return;
+        else {
+          relacionesErrores.textContent = `Has superado el número de vértices n = ${n}`;
+        }
+        return;
       }
 
       rendertextosG();
       document.getElementById('vertex1').value = '';
       document.getElementById('vertex2').value = '';
-      relacionesErrores.textContent='';
+      relacionesErrores.textContent = '';
     } else {
       alert("Por favor, completa ambos campos.");
     }
@@ -188,11 +197,12 @@ function guardarTxt(option) {
       ]);
       if (valoresUnicos.size > n) {
         datosV.pop();
-        if(n===0){
-          relacionesErrores.textContent= `Favor de ingresar un valor de n.`;
+        if (n === 0) {
+          relacionesErrores.textContent = `Favor de ingresar un valor de n.`;
         }
-        else{
-          relacionesErrores.textContent= `Has superado el número de vértices n = ${n}`;}
+        else {
+          relacionesErrores.textContent = `Has superado el número de vértices n = ${n}`;
+        }
         return;
       }
       rendertextosG();
