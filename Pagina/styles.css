@@ -22,7 +22,7 @@
     max-width: 350px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 10px;
   }
   
   #app {
@@ -34,7 +34,7 @@
     transition: transform 0.5s ease;
   }
   .mover-izquierda {
-    transform: translateX(-200px);
+    transform: translateX(-100px);
   }
   
   #nuevoDiv {
@@ -42,10 +42,10 @@
     visibility: hidden;
     position: absolute;
     top: 0;
-    left: 420px; 
-    width: 200px;
+    left: 400px; 
+    width: 500px;
     height: 100px;
-    width: 100%;
+    width: 70%;
     background: white;
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
@@ -127,7 +127,7 @@
     border-color: var(--color-gray-blue);
   }
   
-  /* Medidas responsive */
+  /* Responsive */
   @media (max-width: 400px) {
     body {
       padding: 10px;

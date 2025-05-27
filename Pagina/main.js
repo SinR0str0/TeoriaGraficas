@@ -151,8 +151,8 @@ function cambiarResultadosDiv(option) {
     });
   } else if (option === "2") {
     resultadoDiv.innerHTML = `
-                    Sale del vértice <input type="text" id="vertex3" placeholder="Inicio" />
-                    y llega al vértice <input type="text" id="vertex4" placeholder="Fin" />
+                    Sale del vértice <input type="text" id="vertex3" placeholder="Inicio" style="width: 63px;"/>
+                    y llega al vértice <input type="text" id="vertex4" placeholder="Fin" style="width: 63px;"/>
                     <button id="saveBtn">Guardar</button>
                 `;
     document.getElementById('saveBtn').addEventListener('click', function (e) {
