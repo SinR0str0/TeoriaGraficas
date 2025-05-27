@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animación mover div</title>
+<style>
+  #app {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+    position: relative;
+    transition: transform 0.5s ease;
+  }
+  /* Clase para mover el div a la izquierda */
+  .mover-izquierda {
+    transform: translateX(-200px);
+  }
+</style>
+</head>
+<body>
+
+<div id="app">Contenido del div</div>
+<button id="btnMover">Mover a la izquierda</button>
+
+<script>
+  const appDiv = document.getElementById('app');
+  const btn = document.getElementById('btnMover');
+
+  btn.addEventListener('click', () => {
+    // Alternar clase que mueve el div
+    appDiv.classList.toggle('mover-izquierda');
+  });
+</script>
+
+</body>
+</html>

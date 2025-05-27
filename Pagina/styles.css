@@ -22,7 +22,7 @@
     max-width: 350px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 10px;
   }
   
   #app {
@@ -30,9 +30,33 @@
     background: white;
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
-    padding: 20px;
+    padding: 10px;
+    transition: transform 0.5s ease;
+  }
+  .mover-izquierda {
+    transform: translateX(-100px);
   }
   
+  #nuevoDiv {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 400px; 
+    width: 500px;
+    height: 100px;
+    width: 70%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
+    padding: 10px;
+    transition: opacity 0.5s ease;
+  }
+  #nuevoDiv.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
   h1 {
     text-align: center;
     color: var(--color-gray-blue);
@@ -89,12 +113,6 @@
     margin-top: -5px;
   }
   
-  #dropdowns {
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
   select {
     padding: 10px;
     border-radius: 8px;
@@ -109,7 +127,7 @@
     border-color: var(--color-gray-blue);
   }
   
-  /* Medidas responsive */
+  /* Responsive */
   @media (max-width: 400px) {
     body {
       padding: 10px;
