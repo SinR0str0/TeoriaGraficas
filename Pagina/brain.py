@@ -8,7 +8,7 @@ def MIncidenciaD(n:int, e:int, s:list, l:list):
     mat = [["0" for _ in range(e)] for _ in range(n)]
     for x in range(e):
         mat[s[x]-1][x] = "+1"
-        if mat[l[x]-1][x] == "+1":
+        if mat[l[x]-1][x] == "+1" or mat[l[x]-1][x]=="-1":
             mat[l[x]-1][x] = "±1"
         else:
             mat[l[x]-1][x] = "-1"
@@ -52,8 +52,8 @@ def MAccesibilidad(MAdya:list):
                 MatrizR[i][j]=MatrizR[i][j]+suma
     for i in range(n):
         for j in range(n):
-            if MatrizR!=0:
-                MatrizR="+"
+            if MatrizR[i][j]!=0:
+                MatrizR[i][j]="+"
     return MatrizR
 
 def Paralelas(Mincide:list):
