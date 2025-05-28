@@ -13,6 +13,8 @@ def MIncidenciaD(n:int, e:int, s:list, l:list):
         s_val = int(s[x])
         l_val = int(l[x])
 
+        print(f"El valor de s es: {s_val}, tipo: {type(s_val)}")
+        print(f"El valor de l es: {l_val}, tipo: {type(l_val)}")
         mat[s_val-1][x] = "+1"
         if mat[l_val-1][x] == "+1" or mat[l[x]-1][x]=="-1":
             mat[l_val-1][x] = "±1"
@@ -41,6 +43,8 @@ def MIncidenciaG(n:int, e:int, s:list, l:list):
     for x in range(e):
         s_val = int(s[x])
         l_val = int(l[x])
+        print(f"El valor de s es: {s_val}, tipo: {type(s_val)}")
+        print(f"El valor de l es: {l_val}, tipo: {type(l_val)}")
         mat[s_val-1][x]+=1 
         mat[l_val-1][x]+=1 
     
