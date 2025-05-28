@@ -73,8 +73,14 @@ async function main(){
     if (!pyodide) {
       await setupPyodide();
     }
-    
-    let matrix = await pyodide.runPythonAsync(`MIncidenciaD(${n}, ${e}, ${JSON.stringify(s)}, ${JSON.stringify(l)})`);
+    let matrix;
+    if(opActual==="1"){
+      //Gráfica
+      matrix = await pyodide.runPythonAsync(`MIncidenciaG(${n}, ${e}, ${JSON.stringify(s)}, ${JSON.stringify(l)})`);
+    }
+    else{
+      matrix = await pyodide.runPythonAsync(`MIncidenciaD(${n}, ${e}, ${JSON.stringify(s)}, ${JSON.stringify(l)})`);
+    }
     if (!matrix) {
       throw new Error(`La ejecución de MIncidenciaD(${n}, ${e}, ${s}, ${l}) falló.`);
     }
