@@ -1,165 +1,211 @@
 /* Paleta de Colores */
 :root {
-    --color-light-blue: #90dee3;
-    --color-gray-blue: #58666b;
-    --color-dark: #292014;
-    --color-light-bg: #f0fafb;
+  --color-light-blue: #90dee3;
+  --color-gray-blue: #58666b;
+  --color-dark: #292014;
+  --color-light-bg: #f0fafb;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--color-light-bg);
-    color: var(--color-dark);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 600px;
-    max-width: 100%; 
-    padding: 10px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-light-bg);
+  color: var(--color-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  max-width: 100%;
+  padding: 10px;
+}
+
+#grafica {
+  width: 600px;
+  height: 600px;
+  margin: 20px auto;
+  display: block;
 }
 
 #app {
-    position: relative; 
-    width: 90%;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
-    padding: 10px;
-    transition: transform 0.5s ease;
+  position: relative;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
+  padding: 20px;
+  transition: transform 0.5s ease;
 }
 
 .mover-izquierda {
-    transform: translateX(-90%);
+  transform: translateX(-90%);
 }
 
 #nuevoDiv {
-   position: absolute;
-    top: 0; 
-    left: 30%; 
-    margin-left: 10px;
-    width: auto;
-    height: auto;
-    min-width: 500px; 
-    max-width: 1000px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
-    padding: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 30%;
+  margin-left: 10px;
+  width: auto;
+  height: auto;
+  min-width: 500px;
+  max-width: 1000px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(88, 102, 107, 0.3);
+  padding: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
 }
 
 #nuevoDiv.visible {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 #nuevoDiv button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 16px;
-    cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#matrizIncidencia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+#matrizAdyacencia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+#matrizAccesibilidad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 18px; 
+    font-family: Arial, sans-serif;
+}
+
+td {
+    width: 50px; 
+    height: 50px;
+    text-align: center;
+    border: 2px solid #333; 
 }
 
 .section-content {
-    padding: 15px;
-    margin-top: 10px;
-    display: none;
-    background-color: white;
+  padding: 15px;
+  margin-top: 10px;
+  display: none;
+  background-color: white;
 }
 
 h1 {
-    text-align: center;
-    color: var(--color-gray-blue);
-    margin-bottom: 20px;
+  text-align: center;
+  color: var(--color-gray-blue);
+  margin-bottom: 20px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 label {
-    font-weight: 600;
-    color: var(--color-dark);
-    margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 5px;
 }
 
-input[type="number"], input[type="text"] {
-    padding: 10px;
-    border: 2px solid var(--color-light-blue);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    width: 100%;
+input[type="number"],
+input[type="text"] {
+  padding: 10px;
+  border: 2px solid var(--color-light-blue);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  width: 100%;
 }
 
-input[type="number"]:focus, input[type="text"]:focus {
-    outline: none;
-    border-color: var(--color-gray-blue);
+input[type="number"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-gray-blue);
 }
 
 button {
-    background-color: var(--color-light-blue);
-    border: none;
-    color: var(--color-dark);
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: var(--color-light-blue);
+  border: none;
+  color: var(--color-dark);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: var(--color-gray-blue);
-    color: var(--color-light-bg);
+  background-color: var(--color-gray-blue);
+  color: var(--color-light-bg);
 }
 
 .error {
-    color: #e63946;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-top: -5px;
+  color: #e63946;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: -5px;
 }
 
 select {
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid var(--color-light-blue);
-    font-size: 1rem;
-    background-color: var(--color-light-bg);
-    color: var(--color-dark);
-    transition: border-color 0.3s ease;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--color-light-blue);
+  font-size: 1rem;
+  background-color: var(--color-light-bg);
+  color: var(--color-dark);
+  transition: border-color 0.3s ease;
 }
 
 select:focus {
-    outline: none;
-    border-color: var(--color-gray-blue);
+  outline: none;
+  border-color: var(--color-gray-blue);
 }
 
 /* Responsive */
 @media (max-width: 400px) {
-    body {
-        padding: 10px;
-    }
-    #app {
-        padding: 15px;
-    }
-    h1 {
-        font-size: 1.5rem;
-    }
-    button, input[type="number"], select {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
+  body {
+    padding: 10px;
+  }
+
+  #app {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button,
+  input[type="number"],
+  select {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
 }
