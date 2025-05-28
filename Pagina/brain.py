@@ -5,7 +5,7 @@ def Mat(n):
 
 #Funciones de matrices dirigidas:
 def MIncidenciaD(n:int, e:int, s:list, l:list):
-    mat = [["0" for _ in range(n)] for _ in range(e)]
+    mat = [["0" for _ in range(e)] for _ in range(n)]
     for x in range(e):
         mat[s[x]-1][x] = "+1"
         if mat[l[x]-1][x] == "+1" or mat[l[x]-1][x]=="-1":
