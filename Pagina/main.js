@@ -48,6 +48,45 @@ async function prueba(verticesValue) {
   }
 }
 
+async function main(){
+  const n = Number(vertices.value);
+  const e = Number(lineas.value);
+  const s = datosV.map(item => item.v1);
+  const l = datosV.map(item => item.v2);;
+  let MIncide;
+  let MAdya;
+  let MAcceso;
+  let GradoI;
+  let GradoE;
+
+  const graph = document.getElementById('grafica');
+  const incidencia = document.getElementById('matrizIncidencia');
+  const adyacecia = document.getElementById('matrizAdyacencia');
+  const accesibilidad = document.getElementById('matrizAccesibilidad');
+  const cGraph = document.getElementById('caracteristicasGrafica');
+  const cLines = document.getElementById('caracteristicasLineas');
+
+  if(n>20){
+    graph.textContent='Es probable que la información no se muestre correctamente.';
+  }
+  try {
+    if (!pyodide) {
+      await setupPyodide();
+    }
+    
+    let matrix = await pyodide.runPythonAsync(`MIncidenciaD(${n}, ${e}, ${JSON.stringify(s)}, ${JSON.stringify(l)})`);
+    if (!matrix) {
+      throw new Error(`La ejecución de MIncidenciaD(${n}, ${e}, ${s}, ${l}) falló.`);
+    }
+    matrix = matrix.toJs();
+    
+    // Mostrar la matriz en el div de matriz de incidencia
+    incidencia.innerHTML = '<pre>' + JSON.stringify(matrix, null, 2) + '</pre>';
+  } catch (error) {
+    console.error('Error:', error);
+    incidencia.innerHTML = `<p>Error: ${error.message}</p>`;
+  }
+}
 
 function validaNumero(value) {
   return Number.isInteger(value) && value >= 0 && !value.toString().includes(".");
@@ -246,6 +285,8 @@ function rendertextosG() {
     textosGDiv.appendChild(p);
   });
 }
+
+
 
 (function() {
   const buttons = document.querySelectorAll('#nuevoDiv button');
