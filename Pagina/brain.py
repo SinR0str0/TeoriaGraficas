@@ -203,6 +203,49 @@ def isCompleted(GradoI:list, GradoE:list):
     return 1
 
 
+def isEuleriana(tipo : int, MAcceso:list, MIncide:list):
+    if tipo==1:
+        #Gráfica
+        if isConnected(MAcceso):
+            vertices = Grado(MIncide,1)
+            for x in vertices:
+                if x%2!=0: return 0
+        else: return 0
+    else:
+        #Digráfica
+        gradoI = Grado(MIncide,"+1")
+        gradoE = Grado(MIncide,"-1")
+
+        if not (isBalanced(gradoI,gradoE) and isConnected(MAcceso)):
+            return 0
+    return 1
+
+def isUnicursal(tipo : int, MAcceso:list, MIncide:list):
+    if tipo==1:
+        #Gráfica
+        if isConnected(MAcceso):
+            vertices = Grado(MIncide,1)
+            impar = 0
+            for x in vertices:
+                if x%2!=0: impar+=1
+            
+            if impar != 2:
+                return 0
+        else: return 0
+    else:
+        #Digráfica
+        impar = 0
+        gradoI = Grado(MIncide,"+1")
+        gradoE = Grado(MIncide,"-1")
+
+        for x in range(len(gradoI)):
+            if gradoI[x] != gradoE[x]:
+                impar +=1
+            
+            if impar != 2:
+                return 0
+    return 1
+
 
 print(MIncidenciaD(3,3,[1,2,3],[2,3,1]))
 print(MAdyacenciaD(3,3,[1,2,3],[2,3,1]))

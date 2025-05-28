@@ -246,3 +246,22 @@ function rendertextosG() {
     textosGDiv.appendChild(p);
   });
 }
+
+(function() {
+  const buttons = document.querySelectorAll('#nuevoDiv button');
+  const sections = document.querySelectorAll('.section-content');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-section');
+      // Ocultar todas las secciones
+      sections.forEach(section => {
+        section.style.display = 'none';
+      });
+      // Mostrar la sección target
+      const targetSection = document.getElementById(targetId);
+      if(targetSection) {
+        targetSection.style.display = 'block';
+      }
+    });
+  });
+})();

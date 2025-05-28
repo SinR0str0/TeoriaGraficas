@@ -3,35 +3,91 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Animación mover div</title>
+<title>NuevoDiv con Secciones Desplegables</title>
 <style>
-  #app {
-    width: 200px;
-    height: 100px;
-    background-color: lightblue;
-    position: relative;
-    transition: transform 0.5s ease;
+  #NuevoDiv {
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
   }
-  /* Clase para mover el div a la izquierda */
-  .mover-izquierda {
-    transform: translateX(-200px);
+  #NuevoDiv button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .section-content {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 10px;
+    display: none;
+    background-color: #f9f9f9;
   }
 </style>
 </head>
 <body>
 
-<div id="app">Contenido del div</div>
-<button id="btnMover">Mover a la izquierda</button>
+<div id="Conteiner" style="position: relative;">
+<div id="NuevoDiv">
+  <button data-section="grafica">1. Gráfica</button>
+  <div id="grafica" class="section-content">
+    <h2>Gráfica</h2>
+    <p>Aquí va la información o contenido relacionado con la gráfica.</p>
+  </div>
+  <button data-section="matrizIncidencia">2. Matriz de Incidencia</button>
+  <div id="matrizIncidencia" class="section-content">
+    <h2>Matriz de Incidencia</h2>
+    <p>Contenido referente a la matriz de incidencia.</p>
+  </div>
+
+  <button data-section="matrizAdyacencia">3. Matriz de Adyacencia</button>
+  <div id="matrizAdyacencia" class="section-content">
+    <h2>Matriz de Adyacencia</h2>
+    <p>Contenido referente a la matriz de adyacencia.</p>
+  </div>
+  <button data-section="matrizAccesibilidad">4. Matriz de Accesibilidad</button>
+  <div id="matrizAccesibilidad" class="section-content">
+    <h2>Matriz de Accesibilidad</h2>
+    <p>Contenido referente a la matriz de accesibilidad.</p>
+  </div>
+  <button data-section="caracteristicasGrafica">5. Características de la gráfica</button>
+  <div id="caracteristicasGrafica" class="section-content">
+    <h2>Características de la gráfica</h2>
+    <p>Detalles y descripciones acerca de las características de la gráfica.</p>
+  </div>
+  <button data-section="caracteristicasLineas">6. Características de las líneas</button>
+  <div id="caracteristicasLineas" class="section-content">
+    <h2>Características de las líneas</h2>
+    <p>Descripción de las características de las líneas.</p>
+  </div>
+</div>
 
 <script>
-  const appDiv = document.getElementById('app');
-  const btn = document.getElementById('btnMover');
+  (function() {
+    const buttons = document.querySelectorAll('#NuevoDiv button');
+    const sections = document.querySelectorAll('.section-content');
 
-  btn.addEventListener('click', () => {
-    // Alternar clase que mueve el div
-    appDiv.classList.toggle('mover-izquierda');
-  });
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-section');
+
+        // Ocultar todas las secciones
+        sections.forEach(section => {
+          section.style.display = 'none';
+        });
+
+        // Mostrar la sección target
+        const targetSection = document.getElementById(targetId);
+        if(targetSection) {
+          targetSection.style.display = 'block';
+        }
+      });
+    });
+  })();
 </script>
 
 </body>
 </html>
+
