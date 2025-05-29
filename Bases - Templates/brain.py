@@ -5,38 +5,60 @@ def Mat(n):
 
 #Funciones de matrices dirigidas:
 def MIncidenciaD(n:int, e:int, s:list, l:list):
+    n = int(n)
+    e = int(e)
+
     mat = [["0" for _ in range(e)] for _ in range(n)]
     for x in range(e):
-        mat[s[x]-1][x] = "+1"
-        if mat[l[x]-1][x] == "+1" or mat[l[x]-1][x]=="-1":
-            mat[l[x]-1][x] = "±1"
+        s_val = int(s[x])
+        l_val = int(l[x])
+
+        print(f"El valor de s es: {s_val}, tipo: {type(s_val)}")
+        print(f"El valor de l es: {l_val}, tipo: {type(l_val)}")
+        mat[s_val-1][x] = "+1"
+        if mat[l_val-1][x] == "+1" or mat[l[x]-1][x]=="-1":
+            mat[l_val-1][x] = "±1"
         else:
-            mat[l[x]-1][x] = "-1"
+            mat[l_val-1][x] = "-1"
     
     return mat
 
 def MAdyacenciaD(n:int, e:int, s:list, l:list):
+    n = int(n)
+    e = int(e)
     mat = [[0 for _ in range(n)] for _ in range(n)]
     for x in range(e):
-        mat[s[x]-1][l[x]-1]=1
+        s_val = int(s[x])
+        l_val = int(l[x])
+        mat[s_val-1][l_val-1]=1
     return mat
 
 
 #Funciones de matrices NO Dirigidas:
 def MIncidenciaG(n:int, e:int, s:list, l:list):
+    n = int(n)
+    e = int(e)
     mat = [[0 for _ in range (e)] for _ in range(n)]
     
     for x in range(e):
-        mat[s[x]-1][x]+=1 
-        mat[l[x]-1][x]+=1 
+        s_val = int(s[x])
+        l_val = int(l[x])
+        print(f"El valor de s es: {s_val}, tipo: {type(s_val)}")
+        print(f"El valor de l es: {l_val}, tipo: {type(l_val)}")
+        mat[s_val-1][x]+=1 
+        mat[l_val-1][x]+=1 
     
     return mat
 
 def MAdyacenciaG(n:int, e:int, s:list, l:list):
+    n = int(n)
+    e = int(e)
     mat = [[0 for _ in range(n)] for _ in range(n)]
     for x in range(e):
-        mat[s[x]-1][l[x]-1] = 1
-        mat[l[x]-1][s[x]-1] = 1
+        s_val = int(s[x])
+        l_val = int(l[x])
+        mat[s_val-1][l_val-1] = 1
+        mat[l_val-1][s_val-1] = 1
     return mat
 
 def MAccesibilidad(MAdya:list):
@@ -245,16 +267,3 @@ def isUnicursal(tipo : int, MAcceso:list, MIncide:list):
             if impar != 2:
                 return 0
     return 1
-
-
-print(MIncidenciaD(3,3,[1,2,3],[2,3,1]))
-print(MAdyacenciaD(3,3,[1,2,3],[2,3,1]))
-print(MIncidenciaG(3,3,[1,2,3],[2,3,1]))
-print(MAdyacenciaG(3,3,[1,2,3],[2,3,1]))
-incider = MIncidenciaG(3,3,[1,2,3],[2,3,1])
-adya = MAdyacenciaG(3,3,[1,2,3],[2,3,1])
-
-print(MAccesibilidad(adya))
-print(Paralelas(incider))
-print(Bucles(incider))
-print(Series(incider,[2,2,2]))

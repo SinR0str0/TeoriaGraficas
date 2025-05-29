@@ -1,81 +1,87 @@
 <!DOCTYPE html>
-<html lang="es-419">
+<html lang="es-MX">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Teoría de Gráficas: Dandelion</title>
-<link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="Imagenes/Graph.ico" type="image/x-icon">
-<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Teoría de Gráficas: Dandelion</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="Imagenes/Graph.ico" type="image/x-icon">
+  <meta name="author" content="JazGil" />
+  <meta name="author" content="SinR0str0" />
+  <meta
+    name="description"
+    content="Sitio y repositorio oficial para el proyecto final de la materia de Teoría de Gráficas del semestre 2025-II. FES Acatlán." />
 </head>
+
 <body>
-<div id="Conteiner" style="position: relative;">
-  <div id="app">
-  <h1>Calculadora de Gráficas</h1>
-  <form id="dataForm" novalidate>
-    <div>
-      <label for="tipoGrafo">Selecciona una opción:</label>
-        <select id="tipoGrafo" name="tipoGrafo" required>
+  <div id="Conteiner" style="position: relative;">
+    <div id="app">
+      <h1>Calculadora de Gráficas</h1>
+      <form id="dataForm" novalidate>
+        <div>
+          <label for="tipoGrafo">Selecciona una opción:</label>
+          <select id="tipoGrafo" name="tipoGrafo" required>
             <option value="">Seleccione una opción</option>
             <option value="1">Gráfica</option>
             <option value="2">Digráfica</option>
-        </select>
-      <div id="tipoGrafoError" class="error" aria-live="polite"></div>
+          </select>
+          <div id="tipoGrafoError" class="error" aria-live="polite"></div>
+        </div>
+
+        <div>
+          <label for="lineas">Número de líneas (e):   </label>
+          <input type="number" id="lineas" min="0" step="1" required placeholder="(e)" style="width: 70px;"/>
+          <div id="lineasError" class="error" aria-live="polite"></div>
+        </div>
+
+        <div>
+          <label for="vertices">Número de vértices (n):   </label>
+          <input type="number" id="vertices" min="1" step="1" required placeholder="(n)" style="width: 70px;" />
+          <div id="verticesError" class="error" aria-live="polite"></div>
+        </div>
+
+        <div id="resultado"></div>
+        <div id="textosG" style="margin-top: 1em;"></div>
+        <div id="relacionError" class="error" aria-live="polite"></div>
+
+        <button type="submit">Calcular</button>
+      </form>
     </div>
 
-    <div>
-      <label for="lineas">Número de líneas (e): </label>
-      <input type="number" id="lineas" min="1" step="1" required placeholder="Escriba el valor de e" />
-      <div id="lineasError" class="error" aria-live="polite"></div>
-    </div>
-
-    <div>
-      <label for="vertices">Número de vértices (n): </label>
-      <input type="number" id="vertices" min="1" step="1" required placeholder="Escriba el número n" />
-      <div id="verticesError" class="error" aria-live="polite"></div>
-    </div>
-
-    <div id="resultado"></div>
-    <div id="textosG" style="margin-top: 1em;"></div>
-    <div id="relacionError" class="error" aria-live="polite"></div>
-
-    <button type="submit">Calcular</button>
-  </form>
-</div>
-
-  <div id="nuevoDiv">
-    <button data-section="grafica">1. Gráfica</button>
-    <div id="grafica" class="section-content">
-      <h2>Gráfica</h2>
-      <p>Aquí va la información o contenido relacionado con la gráfica.</p>
-    </div>
-    <button data-section="matrizIncidencia">2. Matriz de Incidencia</button>
-    <div id="matrizIncidencia" class="section-content">
-      <h2>Matriz de Incidencia</h2>
-      <p>Contenido referente a la matriz de incidencia.</p>
-    </div>
-    <button data-section="matrizAdyacencia">3. Matriz de Adyacencia</button>
-    <div id="matrizAdyacencia" class="section-content">
-      <h2>Matriz de Adyacencia</h2>
-      <p>Contenido referente a la matriz de adyacencia.</p>
-    </div>
-    <button data-section="matrizAccesibilidad">4. Matriz de Accesibilidad</button>
-    <div id="matrizAccesibilidad" class="section-content">
-      <h2>Matriz de Accesibilidad</h2>
-      <p>Contenido referente a la matriz de accesibilidad.</p>
-    </div>
-    <button data-section="caracteristicasGrafica">5. Características de la gráfica</button>
-    <div id="caracteristicasGrafica" class="section-content">
-      <h2>Características de la gráfica</h2>
-      <p>Detalles y descripciones acerca de las características de la gráfica.</p>
-    </div>
-    <button data-section="caracteristicasLineas">6. Características de las líneas</button>
-    <div id="caracteristicasLineas" class="section-content">
-      <h2>Características de las líneas</h2>
-      <p>Descripción de las características de las líneas.</p>
+    <div id="nuevoDiv">
+      <button data-section="grafica">1. Gráfica</button>
+      <div id="grafica" class="section-content">
+        <canvas id="canvas" width="600" height="400"></canvas>
+      </div>
+      <button data-section="matrizIncidencia">2. Matriz de Incidencia</button>
+      <div id="matrizIncidencia" class="section-content">
+        <h2>Matriz de Incidencia</h2>
+        <p>Contenido referente a la matriz de incidencia.</p>
+      </div>
+      <button data-section="matrizAdyacencia">3. Matriz de Adyacencia</button>
+      <div id="matrizAdyacencia" class="section-content">
+        <h2>Matriz de Adyacencia</h2>
+        <p>Contenido referente a la matriz de adyacencia.</p>
+      </div>
+      <button data-section="matrizAccesibilidad">4. Matriz de Accesibilidad</button>
+      <div id="matrizAccesibilidad" class="section-content">
+        <h2>Matriz de Accesibilidad</h2>
+        <p>Contenido referente a la matriz de accesibilidad.</p>
+      </div>
+      <button data-section="caracteristicasGrafica">5. Características de la gráfica</button>
+      <div id="caracteristicasGrafica" class="section-content">
+        <h2>Características de la gráfica</h2>
+        <p>Detalles y descripciones acerca de las características de la gráfica.</p>
+      </div>
+      <button data-section="caracteristicasLineas">6. Características de las líneas y vértices</button>
+      <div id="caracteristicasLineas" class="section-content">
+        <h2>Características de las líneas</h2>
+        <p>Descripción de las características de las líneas.</p>
+      </div>
     </div>
   </div>
-  </div>
-<script src="main.js" defer></script>
+  <script src="main.js" defer></script>
 </body>
+
 </html>
