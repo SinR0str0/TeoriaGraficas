@@ -16,32 +16,8 @@ const textosGDiv = document.getElementById('textosG');
 
 let opActual = '';
 const datosV = [];
-let pyodide; // global
 
-async function setupPyodide() {
-  pyodide = await loadPyodide();
-
-  const response = await fetch("brain.py");
-  const code = await response.text();
-  await pyodide.runPythonAsync(code);
-}
-
-function graficarRelaciones(canvasId, vertices) {
-  const relaciones = [
-  { from: 'A', to: 'B', type: 2 },
-  { from: 'A', to: 'C', type: 2 },
-  { from: 'B', to: 'D', type: 1 },
-  { from: 'C', to: 'D', type: 2 },
-  { from: 'D', to: 'E', type: 2 },
-  { from: 'E', to: 'A', type: 1 },
-  { from: 'A', to: 'B', type: 1 },  // Paralela a la primera A->B pero tipo 1 (sin cabeza)
-  { from: 'B', to: 'B', type: 2 },  // Bucle en B
-  { from: 'F', to: 'F', type: 2 }   // Vértice desconectado con bucle
-];
-
-// Todos los nodos posibles, incluyendo desconectados (los que no están en relaciones)
-const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
-
+function graficarRelaciones(canvasId, verticesDesconectados) {
   const canvas = document.getElementById(canvasId);
   if (!canvas.getContext) {
     alert("Tu navegador no soporta Canvas");
@@ -52,11 +28,12 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
 
   // Extraer nodos únicos de relaciones y agregar desconectados
   const nodosSet = new Set();
-  relaciones.forEach(rel => {
-    nodosSet.add(rel.from);
-    nodosSet.add(rel.to);
+  datosV.forEach(rel => {
+    nodosSet.add(rel.v1);
+    nodosSet.add(rel.v2);
   });
-  vertsDesconectados.forEach(v => nodosSet.add(v));
+
+  verticesDesconectados.forEach(v => nodosSet.add(v));
   const nodos = Array.from(nodosSet).sort();
 
   // Posicionar nodos en círculo
@@ -78,21 +55,36 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
   // Función para dibujar flecha
   function dibujarFlecha(ctx, fromX, fromY, toX, toY) {
     const headlen = 10;
+    const nodeRadius = 20; // Radio del vértice de destino
     const dx = toX - fromX;
     const dy = toY - fromY;
     const angle = Math.atan2(dy, dx);
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
+    // Calcular punto en el borde del vértice de destino
+    let newToX = toX;
+    let newToY = toY;
+    if (dist > 0) { // Evitar división por cero
+      // Normalizar vector dirección
+      const unitX = dx / dist;
+      const unitY = dy / dist;
+      // Moverse desde el centro del destino hacia atrás por nodeRadius
+      newToX = toX - unitX * nodeRadius;
+      newToY = toY - unitY * nodeRadius;
+    }
+
+    // Dibujar línea hasta el borde
     ctx.beginPath();
     ctx.moveTo(fromX, fromY);
-    ctx.lineTo(toX, toY);
+    ctx.lineTo(newToX, newToY);
     ctx.stroke();
 
-    // Cabeza flecha
+    // Cabeza flecha en el borde
     ctx.beginPath();
-    ctx.moveTo(toX, toY);
-    ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
-    ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
-    ctx.lineTo(toX, toY);
+    ctx.moveTo(newToX, newToY);
+    ctx.lineTo(newToX - headlen * Math.cos(angle - Math.PI / 6), newToY - headlen * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(newToX - headlen * Math.cos(angle + Math.PI / 6), newToY - headlen * Math.sin(angle + Math.PI / 6));
+    ctx.lineTo(newToX, newToY);
     ctx.fill();
   }
 
@@ -118,7 +110,7 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
   }
 
   // Dibuja bucle en un nodo en forma de arco ajustado
-  function dibujarBucle(ctx, x, y, radio=20, type=2) {
+  function dibujarBucle(ctx, x, y, radio=20) {
     ctx.beginPath();
     const startAngle = Math.PI * 0.3;
     const endAngle = Math.PI * 2.3;
@@ -126,9 +118,9 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
     ctx.arc(x + radio * 0.7, y - radio * 0.7, radio, startAngle, endAngle);
     ctx.stroke();
 
-    if (type !== 1) {
+    if (opActual !== "1") {
       // Dibuja cabeza flecha en el punto correspondiente al endAngle
-      const angle = endAngle;
+      const angle = startAngle;
       const headlen = 10;
       const arrowX = x + radio * 0.7 + radio * Math.cos(angle);
       const arrowY = y - radio * 0.7 + radio * Math.sin(angle);
@@ -150,18 +142,17 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
 
   // Preparar datos para detectar líneas paralelas entre mismos nodos
   const mapaParejas = {};
-  relaciones.forEach((rel, idx) => {
-    // Clave ordenada para la pareja (from,to)
-    let key = rel.from < rel.to ? rel.from + '-' + rel.to : rel.to + '-' + rel.from;
+  datosV.forEach((rel, idx) => {
+    const key = `${rel.v1}-${rel.v2}`;
     if (!mapaParejas[key]) mapaParejas[key] = [];
-    mapaParejas[key].push(idx);
+    mapaParejas[key].push({ idx, from: rel.v1, to: rel.v2 });
   });
 
   // Dibujar aristas
-  relaciones.forEach((rel, idx) => {
-    const from = rel.from;
-    const to = rel.to;
-    const tipo = rel.type || 2;
+  datosV.forEach((rel, idx) => {
+    const from = rel.v1;
+    const to = rel.v2;
+    const tipo = parseInt(opActual);
     const pFrom = posiciones[from];
     const pTo = posiciones[to];
 
@@ -174,21 +165,32 @@ const verticesDesconectados = ['G']; // Ejemplo nodo desconectado sin aristas
       dibujarBucle(ctx, pFrom.x, pFrom.y, 20, tipo);
     } else {
       // Líneas paralelas: offset según posición en grupo
-      let key = from < to ? from + '-' + to : to + '-' + from;
-      let indicesGrupo = mapaParejas[key];
-      let idxEnGrupo = indicesGrupo.indexOf(idx);
+      const key = `${from}-${to}`; 
+      const reverseKey = `${to}-${from}`;
+      const grupo = [
+        ...(mapaParejas[key] || []),
+        ...(mapaParejas[reverseKey] || []).map(g => ({ ...g, reverse: true }))
+      ];
+      const idxEnGrupo = grupo.findIndex(g => g.idx === idx);
       const separacionOffset = 8;
-      const mitad = (indicesGrupo.length - 1) / 2;
-      const offset = (idxEnGrupo - mitad) * separacionOffset;
+      const mitad = (grupo.length - 1) / 2;
+      const offset = (idxEnGrupo - mitad) * separacionOffset * (grupo[idxEnGrupo].reverse ? -1 : 1);
 
       const puntos = dibujarLineaParalela(ctx, pFrom.x, pFrom.y, pTo.x, pTo.y, offset);
       if (!puntos) return;
 
       if (tipo === 1) {
+        // Gráfica: Línea simple
+        ctx.moveTo(puntos.startX, puntos.startY);
+        ctx.lineTo(puntos.endX, puntos.endY);
         ctx.stroke();
       } else {
-        ctx.stroke();
-        dibujarFlecha(ctx, puntos.startX, puntos.startY, puntos.endX, puntos.endY);
+        // Digráfica: Línea con flecha hacia 'to'
+        const startX = from === rel.v1 ? puntos.startX : puntos.endX;
+        const startY = from === rel.v1 ? puntos.startY : puntos.endY;
+        const endX = from === rel.v1 ? puntos.endX : puntos.startX;
+        const endY = from === rel.v1 ? puntos.endY : puntos.startY;
+        dibujarFlecha(ctx, startX, startY, endX, endY);
       }
     }
   });
@@ -231,7 +233,8 @@ function main() {
     vertexLabels.push(`V${newIndex}`);
   }
 
-  //graficarRelaciones('canvas', vertexLabels);
+  const verticesDesconectados = vertexLabels.filter(label => !vertexLabelsSet.has(label));
+  
 
   const labelToIndex = new Map();
   vertexLabels.forEach((label, index) => labelToIndex.set(label, index));
@@ -251,6 +254,9 @@ function main() {
 
   if (n > 20) {
     graph.textContent = 'Es probable que la información no se muestre correctamente.';
+  }
+  else{
+    graficarRelaciones('canvas', verticesDesconectados);
   }
 
   if (opActual === "1") {
