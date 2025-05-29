@@ -66,10 +66,12 @@ La aplicación está disponible en: [https://sinr0str0.github.io/TeoriaGraficas/
 ## 💬 Contribuciones
 
 ¡Las contribuciones son bienvenidas! Por favor, abre un *issue* o envía un *pull request* en el repositorio.
+
 En su defecto, si este archivo fue compartido directamente por alguno de los autores del proyecto, puede contactarlos para hacer sus contribuciones.
 
 
 - - -
 ## 🧑‍🧒 Autores
 Proyecto elaborado por [Sin_R0str0](https://github.com/SinR0str0) & [JazGil](https://github.com/JazGil).
+
 Última actualización: 28 de mayo de 2025.
