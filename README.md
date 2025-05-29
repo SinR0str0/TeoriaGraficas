@@ -71,7 +71,7 @@ En su defecto, si este archivo fue compartido directamente por alguno de los aut
 
 
 - - -
-## 🧑‍🧒 Autores
+## 👨‍👧 Autores
 Proyecto elaborado por [Sin_R0str0](https://github.com/SinR0str0) & [JazGil](https://github.com/JazGil).
 
 Última actualización: 28 de mayo de 2025.
