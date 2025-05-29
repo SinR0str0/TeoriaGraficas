@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Gráficas - Documentación</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1a3c34;
+            color: #fff;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0,0.1);
+        }
+        section h2 {
+            font-size: 1.8rem;
+            color: #1a3c34;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        section p, section li {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+        section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        section ul li {
+            color: #4a4a4a;
+            margin-bottom: 0.5rem;
+        }
+        section a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        section a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #e8f0fe;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        footer {
+            background-color: #1a3c34;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            section h2 {
+                font-size: 1.5rem;
+            }
+            section p, section li {
+                font-size: 1rem;
+            }
+            main {
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora de Gráficas</h1>
+        <p>Una aplicación web interactiva para visualizar y analizar grafos dirigidos y no dirigidos.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>📚 Introducción</h2>
+            <p>
+                La <span class="highlight">Calculadora de Gráficas</span> es una aplicación web que permite a los usuarios dibujar y analizar gráficas dirigidas y no dirigidas. Los usuarios pueden ingresar vértices y aristas a través de un formulario, y la aplicación genera una representación gráfica usando Canvas HTML5, mostrando nodos, aristas, bucles y líneas paralelas. También calcula propiedades como matrices de incidencia, adyacencia, accesibilidad y detecta vértices desconectados y aristas paralelas.
+            </p>
+            <p>
+                El proyecto está diseñado para estudiantes, profesores y entusiastas de la teoría de grafos, proporcionando una herramienta interactiva para explorar conceptos matemáticos de manera visual.
+            </p>
+        </section>
+
+        <section>
+            <h2>🔍 Objetivos</h2>
+            <ul>
+                <li>Crear una interfaz web intuitiva para definir grafos mediante vértices y aristas.</li>
+                <li>Visualizar grafos dirigidos y no dirigidos con nodos en disposición circular, incluyendo bucles y líneas paralelas.</li>
+                <li>Implementar cálculos de matrices (incidencia, adyacencia, accesibilidad) y propiedades como vértices desconectados.</li>
+                <li>Proporcionar una experiencia fluida en navegadores modernos sin dependencias externas.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🌐 Lenguajes Utilizados</h2>
+            <p>
+                En la carpeta <span class="code">Pagina</span> podrá encontrar todos los archivos utilizados y mínimamente necesarios para hacer funcionar el programa.
+            </p>
+            <ul>
+                <li>
+                    <strong>HTML</strong>: Define la estructura de la página web, incluyendo el formulario para entrada de datos (número de vértices, aristas, tipo de grafo) y el elemento <span class="code">&lt;canvas&gt;</span> para la visualización y descarga del grafo si es necesario.
+                </li>
+                <li>
+                    <strong>CSS</strong>: Estiliza la interfaz, asegurando que el lienzo Canvas, matrices y secciones de información (como líneas paralelas) sean visualmente claras y responsivas.
+                </li>
+                <li>
+                    <strong>JavaScript</strong>: Maneja la lógica principal:
+                    <ul>
+                        <li><strong>Procesamiento de datos</strong>: Parsea las aristas ingresadas (formato <span class="code">A-B, B-A</span>) y calcula vértices desconectados.</li>
+                        <li><strong>Visualización</strong>: Usa Canvas para dibujar nodos (círculos), aristas (líneas), bucles (arcos) y flechas en digrafos.</li>
+                        <li><strong>Cálculos de grafos</strong>: Genera matrices y detecta propiedades como aristas paralelas.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Markdown</strong> (este archivo): Documenta el proyecto para usuarios y desarrolladores.
+                </li>
+                <li>
+                    <strong>Imágenes</strong> (carpeta): Muestra las imágenes del programa, como el ícono web.
+                </li>
+                <li>
+                    <strong>Python</strong>: Primer boceto del programa que mostró la lógica inicial, luego sustituido por JavaScript para mejorar la velocidad de respuesta.
+                </li>
+                <li>
+                    <strong>Bases-Templates</strong> (carpeta): Almacena todos los archivos de prueba para realizar el proyecto, siempre es bueno tener los orígenes de todo, además de algunas funciones extras que no se agregaron al programa final.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🤖 Uso de la Inteligencia Artificial</h2>
+            <p>
+                La IA (<a href="https://x.ai">Grok 3</a>, BlackBox, ChatGPT, GitHub Copilot) se utilizó para:
+            </p>
+            <ul>
+                <li>
+                    <strong>Transformación de código</strong>: Ayudó a desarrollar y depurar funciones de nuestro archivo primario en Python a JavaScript, como <span class="code">MIncidenciaD</span> y <span class="code">graficarRelaciones</span>, ya que al ser este un lenguaje nuevo y con poco tiempo para terminar el proyecto, fungió como un fuerte apoyo para desarrollar el programa a tiempo.
+                </li>
+                <li>
+                    <strong>Optimización</strong>: Sugirió mejoras en la lógica de Canvas para evitar superposiciones (por ejemplo, en bucles) y optimizar el cálculo de offsets para aristas paralelas.
+                </li>
+                <li>
+                    <strong>Documentación</strong>: Generó este archivo <span class="code">README.md</span>, estructurando la información de manera clara y profesional basada en los requisitos proporcionados.
+                </li>
+            </ul>
+            <p>
+                La IA aceleró el desarrollo, pero el código fue revisado y adaptado manualmente para cumplir con las necesidades específicas del proyecto.
+            </p>
+        </section>
+
+        <section>
+            <h2>🖥️ Enlace a la Página Web</h2>
+            <p>
+                La aplicación está disponible en: <a href="https://sinr0str0.github.io/TeoriaGraficas/Pagina/" target="_blank">https://sinr0str0.github.io/TeoriaGraficas/Pagina/</a>
+            </p>
+        </section>
+
+        <section>
+            <h2>⬇️ Instalación y Uso</h2>
+            <ol>
+                <li>Clona el repositorio: <span class="code">git clone https://github.com/SinR0str0/TeoriaGraficas.git</span>.</li>
+                <li>Abre <span class="code">index.html</span> en un navegador moderno (Chrome, Firefox, Edge).</li>
+                <li>Ingresa los datos del grafo:
+                    <ul>
+                        <li><strong>Número de vértices (n)</strong>: Por ejemplo, 4.</li>
+                        <li><strong>Número de aristas (e)</strong>: Por ejemplo, 2.</li>
+                        <li><strong>Tipo de grafo</strong>: Gráfica (1) o Digráfica (2).</li>
+                        <li><strong>Aristas</strong>: Formato <span class="code">A-B, B-A</span>.</li>
+                    </ul>
+                </li>
+                <li>Haz clic en "Generar Grafo" para ver la visualización y las matrices.</li>
+            </ol>
+            <p>
+                Como opción alternativa, puede consultar el sitio oficial del proyecto (mientras esté disponible) en: <a href="https://sinr0str0.github.io/TeoriaGraficas/Pagina/" target="_blank">https://sinr0str0.github.io/TeoriaGraficas/Pagina/</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>🧬 Estructura del Proyecto</h2>
+            <ul>
+                <li><span class="code">index.html</span>: Página principal con formulario y lienzo Canvas.</li>
+                <li><span class="code">styles.css</span>: Estilos para la interfaz.</li>
+                <li><span class="code">main.js</span>: Lógica principal del formulario, funciones para matrices, cálculos de grafos y más.</li>
+                <li><span class="code">README.md</span>: Este archivo de documentación.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>💬 Contribuciones</h2>
+            <p>
+                ¡Las contribuciones son bienvenidas! Por favor, abre un <a href="https://github.com/SinR0str0/TeoriaGraficas/issues" target="_blank">issue</a> o envía un <a href="https://github.com/SinR0str0/TeoriaGraficas/pulls" target="_blank">pull request</a> en el repositorio.
+            </p>
+            <p>
+                En su defecto, si este archivo fue compartido directamente por alguno de los autores del proyecto, puede contactarlos para hacer sus contribuciones.
+            </p>
+        </section>
+
+        <section>
+            <h2>👨‍👧 Autores</h2>
+            <p>
+                Proyecto elaborado por <a href="https://github.com/SinR0str0" target="_blank">Sin_R0str0</a> & <a href="https://github.com/JazGil" target="_blank">JazGil</a>.
+            </p>
+            <p>
+                Última actualización: 28 de mayo de 2025.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Calculadora de Gráficas. Desarrollado por Sin_R0str0 & JazGil.</p>
+    </footer>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806531833654510"
+     crossorigin="anonymous"></script>
+</body>
+</html>
