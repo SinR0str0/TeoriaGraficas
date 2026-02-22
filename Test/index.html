@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Teoría de Gráficas</title>
+    <meta name="google-site-verification" content="U-pGKWtvj05NxLi8TdfkYVua7V6OtzLr1t2B076EvXI" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806531833654510"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="Imagenes/SR.ico" type="image/x-icon">
+    <meta name="author" content="SinR0str0" />
+    <meta name="google-adsense-account" content="ca-pub-9806531833654510">
+    <meta name="description" content="Documentación importante para entender el comportamiento de gráficas dirigidas y no dirigidas en Teoría de Gráficas." />
+
+<body>
+    <header>
+        <h1>Teoría de Gráficas</h1>
+        <p>El entendimiento lógico y matemático detrás de todo lo que hacemos.</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>La Teoría de Gráficas</h2>
+            <p>
+                La teoría de gráficas es una rama de las matemáticas que estudia las relaciones entre objetos mediante estructuras llamadas gráficas, formadas por vértices (nodos) y aristas (conexiones). Se usa para modelar redes, caminos, conexiones y estructuras en campos como la informática, la ingeniería, la biología y las ciencias sociales.
+            </p>
+        </section>
+
+        <section class="graph-matrices">
+
+            <h2>Matrices NO Dirigidas </h2>
+            <p>En la teoría de gráficas, las matrices nos ayudan a representar formalmente las conexiones entre vértices
+                y aristas. Estas representaciones facilitan el análisis estructural de una gráfica.</p>
+
+            <h3>Matriz de Incidencia</h3>
+            <p>
+                Esta matriz muestra qué vértices están conectados a qué aristas. Cada columna representa una arista y
+                cada fila un vértice. Se coloca un <strong>1</strong> si el vértice está conectado a la arista. Columnas
+                repetidas indican líneas paralelas. Filas de ceros indican vértices aislados.
+            </p>
+            <h3>Ejemplos de Matrices</h3>
+            <p>
+                La <strong>matriz de inicidencia </strong> asociada a la gráfica:
+                <img 
+                src="Imagenes/Graph1.png"
+                alt="Imágen de gráfica no dirigida con relaciones en los vértices: A-B, C-D, D-E, C-C, E-F."
+                title="Imagen de Gráfica no dirigida.">
+            </p>
+            
+            <h4>Matriz de Incidencia</h4>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>e1</th>
+                        <th>e2</th>
+                        <th>e3</th>
+                        <th>e4</th>
+                        <th>e5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>A</th>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>B</th>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>C</th>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>E</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <th>F</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Matriz de Adyacencia</h3>
+            <p>
+                Representa directamente las conexiones entre pares de vértices. Es una matriz cuadrada donde se coloca
+                un <strong>1</strong> si hay una conexión directa entre dos vértices. Los bucles se reflejan con un
+                <strong>1</strong> en la diagonal. Las gráficas desconectadas tendrán filas y columnas de ceros.
+            </p>
+            <h3>Ejemplos de Matrices</h3>
+            <p>
+                La <strong>matriz de adyacencia </strong> asociada a la gráfica:
+                <img 
+                src="Imagenes/Graph1.png"
+                alt="Imágen de gráfica no dirigida con relaciones en los vértices: A-B, C-D, D-E, C-C, E-F."
+                title="Imagen de Gráfica no dirigida.">
+            </p>
+            
+            <h4>Matriz de Adyacencia</h4>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>E</th>
+                        <th>F</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>A</th>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>B</th>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>C</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>E</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <th>F</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Matriz de Accesibilidad</h3>
+            <p>
+                Indica si existe al menos un camino entre dos vértices, sin importar la cantidad de pasos. Se construye
+                a partir de las potencias de la matriz de adyacencia. Si hay un camino, se marca con un
+                <strong>+</strong>. Una matriz completamente llena de <strong>+</strong> indica que la gráfica está
+                totalmente conectada.
+            </p>
+
+            <h3>Ejemplos de Matrices</h3>
+            <p>La <strong> de accesibilidad </strong> asociada a la gráfica: <img 
+                src="Imagenes/Graph1.png"
+                alt="Imágen de gráfica no dirigida con relaciones en los vértices: A-B, C-D, D-E, C-C, E-F."
+                title="Imagen de Gráfica no dirigida."></p>
+            <h4>Matriz de Accesibilidad</h4>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>E</th>
+                        <th>F</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>A</th>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>B</th>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th>C</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                    </tr>
+                    <tr>
+                        <th>E</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                    </tr>
+                    <tr>
+                        <th>F</th>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                        <td>+</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+        <section class="digraph-matrices">
+  <h2>Matrices en Digráficas (Gráficas dirigidas)</h2>
+  <p>Las digráficas son gráficas donde las aristas tienen una dirección específica. Las siguientes matrices nos ayudan a representarlas y analizarlas.</p>
+
+  <h3>Matriz de Incidencia</h3>
+  <p>
+    Representa la dirección de las conexiones entre vértices. Se usa un <strong>1</strong> para indicar que una arista sale de un vértice, y un <strong>–1</strong> si llega. Las columnas iguales representan líneas paralelas. Las sumas positivas y negativas por renglón indican grados de salida y entrada respectivamente.
+  </p>
+  <h3>Ejemplos de Matrices</h3>
+  La <strong>matriz de incidencia</strong> de la gráfica:
+  <img 
+                src="Imagenes/Graph2.png"
+                alt="Imágen de digráfica con relaciones en los vértices: A->B, A->B, E->C, C->D, E->D."
+                title="Imagen de Gráfica Dirigida.">
+  <table class="matrix-table">
+    <thead>
+      <tr><th></th><th>e1</th><th>e2</th><th>e3</th><th>e4</th><th>e5</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>A</th><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>B</th><td>-1</td><td>-1</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>C</th><td>0</td><td>0</td><td>1</td><td>-1</td><td>0</td></tr>
+      <tr><th>D</th><td>0</td><td>0</td><td>-1</td><td>0</td><td>-1</td></tr>
+      <tr><th>E</th><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+      <tr><th>V6</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Matriz de Adyacencia</h3>
+  <p>
+    Refleja si hay una línea dirigida entre dos vértices. Si existe una conexión de i a j, se coloca un <strong>1</strong>. Una fila en ceros es un vértice sin salidas (final), una columna en ceros indica un vértice sin entradas (inicial).
+  </p>
+  <h3>Ejemplos de Matrices</h3>
+  La <strong>matriz de adyacencia</strong> de la gráfica:
+  <img 
+                src="Imagenes/Graph2.png"
+                alt="Imágen de digráfica con relaciones en los vértices: A->B, A->B, E->C, C->D, E->D."
+                title="Imagen de Gráfica Dirigida.">
+  <table class="matrix-table">
+    <thead>
+      <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>A</th><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>B</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>C</th><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+      <tr><th>D</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>E</th><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+      <tr><th>V6</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Matriz de Accesibilidad</h3>
+  <p>
+    Muestra si existe al menos un camino dirigido entre dos vértices. Si hay un camino, se coloca un <strong>+</strong>; si no, se deja en <strong>0</strong>. Si toda la matriz está llena de <strong>+</strong>, significa que todos los vértices están conectados por algún camino.
+  </p>
+
+  <h3>Ejemplos de Matrices</h3>
+  La <strong>matriz de accesibilidad</strong> de la gráfica:
+  <img 
+                src="Imagenes/Graph2.png"
+                alt="Imágen de digráfica con relaciones en los vértices: A->B, A->B, E->C, C->D, E->D."
+                title="Imagen de Gráfica Dirigida.">
+  <table class="matrix-table">
+  <h4>Matriz de Accesibilidad</h4>
+  <table class="matrix-table">
+    <thead>
+      <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+    </thead>
+    <tbody>
+      <tr><th>A</th><td>0</td><td>+</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>B</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>C</th><td>0</td><td>0</td><td>0</td><td>+</td><td>0</td><td>0</td></tr>
+      <tr><th>D</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><th>E</th><td>0</td><td>0</td><td>+</td><td>+</td><td>0</td><td>0</td></tr>
+      <tr><th>V6</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+        <section class="projects">
+            <div class="project-card">
+                <h3>Calculadora de Gráficas</h3>
+                <p>
+                    La Calculadora de Gráficas es una aplicación web interactiva que permite visualizar y analizar
+                    grafos dirigidos y no dirigidos. Los usuarios pueden ingresar vértices y aristas a través de un
+                    formulario, y la herramienta dibuja el grafo usando Canvas HTML5, mostrando nodos, aristas, bucles y
+                    líneas paralelas. Además, calcula matrices de incidencia, adyacencia y accesibilidad, y detecta
+                    vértices desconectados. Este proyecto es ideal para estudiantes y profesores que deseen explorar
+                    conceptos de teoría de grafos de manera visual.
+                </p>
+                <a href="https://sinr0str0.github.io/TeoriaGraficas/Pagina/" target="_blank">Ver Proyecto</a>
+            </div>
+            <!-- Agrega más proyectos aquí -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mi Repositorio de Proyectos. Todos los derechos reservados.</p>
+    </footer>
+</body>
+
+</html>
